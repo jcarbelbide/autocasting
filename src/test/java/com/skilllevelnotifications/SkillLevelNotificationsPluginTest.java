@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.skilllevelnotifications.src.test.java.com.example;
+package net.runelite.client.plugins.skilllevelnotifications.src.test.java.com.skilllevelnotifications;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
