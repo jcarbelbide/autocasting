@@ -12,9 +12,17 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
+/*
+TODO: When skills lowered, check to see if the skill lowered enough that it would unequip the autocasted spell
+TODO: Create enum for spells and their magic level.
+TODO: On startup, should initialize, getting the autocasted spell and current mage level.
+ */
+
 @Slf4j
 @PluginDescriptor(
-	name = "Example"
+	name = "Skill Level Notifications",
+	description = "Notifies client when certain skills fall under a threshold.",
+	tags = {"skill", "notifier", "notifications", "mage", "magic", "reduced", "reduction", "level", "drain", "autocast", "cast"}
 )
 public class SkillLevelNotificationsPlugin extends Plugin
 {
@@ -27,13 +35,13 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		log.info("SkillLevelNotificationsPlugin started!");
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("Example stopped!");
+		log.info("SkillLevelNotificationsPlugin stopped!");
 	}
 
 	@Subscribe
