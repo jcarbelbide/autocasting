@@ -1,4 +1,4 @@
-package com.example;
+package net.runelite.client.plugins.skilllevelnotifications.src.main.java.com.skilllevelnotifications;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -16,13 +16,13 @@ import net.runelite.client.plugins.PluginDescriptor;
 @PluginDescriptor(
 	name = "Example"
 )
-public class ExamplePlugin extends Plugin
+public class SkillLevelNotificationsPlugin extends Plugin
 {
 	@Inject
 	private Client client;
 
 	@Inject
-	private ExampleConfig config;
+	private SkillLevelNotificationsConfig config;
 
 	@Override
 	protected void startUp() throws Exception
@@ -46,8 +46,8 @@ public class ExamplePlugin extends Plugin
 	}
 
 	@Provides
-	ExampleConfig provideConfig(ConfigManager configManager)
+	SkillLevelNotificationsConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(ExampleConfig.class);
+		return configManager.getConfig(SkillLevelNotificationsConfig.class);
 	}
 }

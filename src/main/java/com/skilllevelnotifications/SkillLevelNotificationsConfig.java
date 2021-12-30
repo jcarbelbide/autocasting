@@ -1,11 +1,11 @@
-package com.example;
+package net.runelite.client.plugins.skilllevelnotifications.src.main.java.com.skilllevelnotifications;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("example")
-public interface ExampleConfig extends Config
+@ConfigGroup("skilllevelnotifications")
+public interface SkillLevelNotificationsConfig extends Config
 {
 	@ConfigItem(
 		keyName = "greeting",
