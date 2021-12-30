@@ -7,14 +7,16 @@ import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.StatChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.api.Skill;
 
 /*
 TODO: When skills lowered, check to see if the skill lowered enough that it would unequip the autocasted spell
-TODO: Create enum for spells and their magic level.
+TODO: Add remaining spells to AutocastSpells enum.
 TODO: On startup, should initialize, getting the autocasted spell and current mage level.
  */
 
@@ -50,6 +52,23 @@ public class SkillLevelNotificationsPlugin extends Plugin
 		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
 		{
 			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
+		}
+	}
+
+	@Subscribe
+	public void onStatChanged(StatChanged event)
+	{
+		Skill skill = event.getSkill();
+		int xp = event.getXp();
+		int level = event.getLevel();
+		int boostedLevel = event.getBoostedLevel();
+
+		if (skill.getName().equals(Skill.MAGIC.getName()))
+		{
+			System.out.println("Skill: " + skill.getName() + ", xp: " + String.valueOf(xp) + ", level: " + String.valueOf(level) + ", boostedLevel: " + String.valueOf(boostedLevel));
+			System.out.println("Was Magic");
+
+
 		}
 	}
 
