@@ -2,22 +2,27 @@ package net.runelite.client.plugins.skilllevelnotifications.src.main.java.com.sk
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
+import javax.swing.*;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
-import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.StatChanged;
+import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
+import java.awt.image.BufferedImage;
 
 /*
 TODO: Add overlay that displays skill name and then flashes when skill too low
 TODO: Add remaining spells to AutocastSpells enum.
 TODO: On startup, should initialize, getting the autocasted spell and current mage level.
+TODO: See if updating the infobox automatically updates the text. It looks like the image does need to be updated.
  */
 
 @Slf4j
@@ -40,17 +45,36 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	@Inject
 	private InfoBoxManager infoBoxManager;
 
+	@Inject
+	private SpriteManager spriteManager;
+
+	@Inject
+	private ItemManager itemManager;
+
+	@Inject
+	private ClientThread clientThread;
+
+	private AutocastSpellInfoBox autocastSpellInfoBox;
+
 	@Override
 	protected void startUp() throws Exception
 	{
 		log.info("SkillLevelNotificationsPlugin started!");
-//		infoBoxManager.addInfoBox();
+		clientThread.invoke(this::initInfoBox);
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
+		}
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		log.info("SkillLevelNotificationsPlugin stopped!");
+		if (client.getGameState() == GameState.LOGGED_IN)
+		{
+			infoBoxManager.removeInfoBox(autocastSpellInfoBox);
+			autocastSpellInfoBox = null;
+		}
 	}
 
 	@Subscribe
@@ -80,6 +104,18 @@ public class SkillLevelNotificationsPlugin extends Plugin
 			System.out.println("Skill: " + skill.getName() + ", xp: " + String.valueOf(xp) + ", statLevel: " + String.valueOf(statLevel) + ", boostedLevel: " + String.valueOf(boostedLevel));
 			System.out.println("Level Req: " + String.valueOf(autocastSpell.getLevelRequirement()) + " Name: " + String.valueOf(autocastSpell.getName()) + " Varbit: " + String.valueOf(autocastSpell.getAutocastSpellVarClientInt()) + " ID: " + String.valueOf(autocastSpell.getAutocastSpellID()) );
 		}
+	}
+
+	private void initInfoBox()
+	{
+		autocastSpellInfoBox = createAutocastSpellInfoBox();
+		infoBoxManager.addInfoBox(autocastSpellInfoBox);
+	}
+
+	private AutocastSpellInfoBox createAutocastSpellInfoBox() {
+		BufferedImage image = spriteManager.getSprite(SpriteID.SPELL_WIND_STRIKE, 0);
+		return new AutocastSpellInfoBox(image, this, "Wind Strike");
+
 	}
 
 	@Provides
