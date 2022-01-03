@@ -44,10 +44,13 @@ enum AutocastSpell
 
     @Getter
     private final String name;
+
     @Getter
     private final Varbits autocastSpellVarClientInt;
+
     @Getter
     private final int levelRequirement;
+
     @Getter
     private final int autocastSpellID;
 
