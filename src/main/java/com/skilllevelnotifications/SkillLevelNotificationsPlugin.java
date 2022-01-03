@@ -10,6 +10,10 @@ import net.runelite.api.*;
 import net.runelite.api.events.StatChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
+import net.runelite.client.chat.ChatColorType;
+import net.runelite.client.chat.ChatMessageBuilder;
+import net.runelite.client.chat.ChatMessageManager;
+import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.ItemManager;
@@ -20,10 +24,8 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import java.awt.image.BufferedImage;
 
 /*
-TODO: Add overlay that displays skill name and then flashes when skill too low
+TODO: Work on Overlay class to replace infobox class
 TODO: Add remaining spells to AutocastSpells enum.
-TODO: On startup, should initialize, getting the autocasted spell and current mage level.
-TODO: See if updating the infobox automatically updates the text. It looks like the image does need to be updated.
  */
 
 @Slf4j
@@ -38,6 +40,10 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	private boolean magicLevelMeetsSpellReq;
 
 	private AutocastSpell currentAutocastSpell;
+
+	private static final String AUTOCAST_UNEQUIP_NOTIFICATION_MESSAGE = "Your magic level has dropped below what is required to autocast your spell.";
+
+	private AutocastSpellInfoBox autocastSpellInfoBox;
 
 	@Inject
 	private Client client;
@@ -57,7 +63,8 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	@Inject
 	private ClientThread clientThread;
 
-	private AutocastSpellInfoBox autocastSpellInfoBox;
+	@Inject
+	private ChatMessageManager chatMessageManager;
 
 	@Override
 	protected void startUp() throws Exception
@@ -74,9 +81,10 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onVarbitChanged()
+	public void onVarbitChanged(VarbitChanged event)
 	{
-
+		updateAutocastSpell();
+		updateAutocastSpellInfoBox();
 	}
 
 	@Subscribe
@@ -96,6 +104,8 @@ public class SkillLevelNotificationsPlugin extends Plugin
 			{
 				magicLevelMeetsSpellReq = false;
 				System.out.println("Level too low to autocast.");
+				currentAutocastSpell = AutocastSpell.NOSPELL;
+				updateAutocastSpellInfoBox();
 			}
 			else
 			{
@@ -110,6 +120,7 @@ public class SkillLevelNotificationsPlugin extends Plugin
 
 	private void startPlugin()
 	{
+		updateAutocastSpell();
 		autocastSpellInfoBox = createAutocastSpellInfoBox();
 		infoBoxManager.addInfoBox(autocastSpellInfoBox);
 	}
@@ -120,10 +131,70 @@ public class SkillLevelNotificationsPlugin extends Plugin
 		autocastSpellInfoBox = null;
 	}
 
+	private void updateAutocastSpell() {
+		// Get new autocast spell.
+		AutocastSpell newAutocastSpell = getAutocastSpellFromClient();
+		if (newAutocastSpell == null) { return; }
+
+//		System.out.println(newAutocastSpell.getAutocastSpellID() + ", " + currentAutocastSpell.getAutocastSpellID());
+		// If the new spell is not null, and there is currently no autocast spell selected, update it
+		// TODO: The following if else tree can be replaced with "currentAutocastSpell = newAutocastSpell;" for all cases, but
+		// 		but I'm not sure how expensive that can add up to be with varbits changing all the time. Maybe it's better
+		// 		than checking these conditions every time, i dont know. Someone with more knowledge, please let me know.
+		if (currentAutocastSpell == null)
+		{
+			currentAutocastSpell = newAutocastSpell;
+		}
+		else if (newAutocastSpell.getAutocastSpellID() == currentAutocastSpell.getAutocastSpellID())
+		{
+			// No change to autocast spell
+			return;
+		}
+		else
+		{
+			// Otherwise, update the spell.
+			currentAutocastSpell = newAutocastSpell;
+			System.out.println("Autocast spell change detected. New spell: " + currentAutocastSpell.getName());
+			sendChatMessage(AUTOCAST_UNEQUIP_NOTIFICATION_MESSAGE);
+		}
+	}
+
+	private AutocastSpell getAutocastSpellFromClient()
+	{
+		// Get new autocast spell.
+		int autocastSpellID = client.getVar(Varbits.AUTOCAST_SPELL);
+		AutocastSpell newAutocastSpell = AutocastSpell.getAutocastSpell(autocastSpellID);
+		return newAutocastSpell;
+	}
+
 	private AutocastSpellInfoBox createAutocastSpellInfoBox() {
 		BufferedImage image = spriteManager.getSprite(SpriteID.SPELL_WIND_STRIKE, 0);
 		return new AutocastSpellInfoBox(image, this, "Wind Strike");
+	}
 
+	private void updateAutocastSpellInfoBox()
+	{
+		if (currentAutocastSpell == null) { return; }
+		BufferedImage image = spriteManager.getSprite(currentAutocastSpell.getSpriteID(), 0);
+		AutocastSpellInfoBox newInfoBox = new AutocastSpellInfoBox(image, this, currentAutocastSpell.getName());
+		infoBoxManager.removeInfoBox(autocastSpellInfoBox);
+		autocastSpellInfoBox = newInfoBox;
+		infoBoxManager.addInfoBox(autocastSpellInfoBox);
+	}
+
+	// Borrowed from DailyTasksPlugin.java
+	private void sendChatMessage(String chatMessage)
+	{
+		final String message = new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append(chatMessage)
+				.build();
+
+		chatMessageManager.queue(
+				QueuedMessage.builder()
+						.type(ChatMessageType.CONSOLE)
+						.runeLiteFormattedMessage(message)
+						.build());
 	}
 
 	@Provides
