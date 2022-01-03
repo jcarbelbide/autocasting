@@ -1,8 +1,7 @@
-package net.runelite.client.plugins.skilllevelnotifications.src.main.java.com.skilllevelnotifications;
+package net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
-import javax.swing.*;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,11 +29,11 @@ TODO: Add remaining spells to AutocastSpells enum.
 
 @Slf4j
 @PluginDescriptor(
-	name = "Skill Level Notifications",
+	name = "Autocast Utilities",
 	description = "Notifies client when certain skills fall under a threshold.",
 	tags = {"skill", "notifier", "notifications", "mage", "magic", "reduced", "reduction", "level", "drain", "autocast", "cast"}
 )
-public class SkillLevelNotificationsPlugin extends Plugin
+public class AutocastUtilitiesPlugin extends Plugin
 {
 	@Getter
 	private boolean magicLevelMeetsSpellReq;
@@ -49,7 +48,7 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	private Client client;
 
 	@Inject
-	private SkillLevelNotificationsConfig config;
+	private AutocastUtilitiesConfig config;
 
 	@Inject
 	private InfoBoxManager infoBoxManager;
@@ -69,14 +68,14 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("SkillLevelNotificationsPlugin started!");
+		log.info("AutocastUtilities started!");
 		clientThread.invoke(this::startPlugin);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("SkillLevelNotificationsPlugin stopped!");
+		log.info("AutocastUtilities stopped!");
 		clientThread.invoke(this::shutdownPlugin);
 	}
 
@@ -198,8 +197,8 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	}
 
 	@Provides
-	SkillLevelNotificationsConfig provideConfig(ConfigManager configManager)
+	AutocastUtilitiesConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(SkillLevelNotificationsConfig.class);
+		return configManager.getConfig(AutocastUtilitiesConfig.class);
 	}
 }

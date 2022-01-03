@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.skilllevelnotifications.src.main.java.com.skilllevelnotifications;
+package net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities;
 
 import lombok.Setter;
 import net.runelite.client.plugins.Plugin;
