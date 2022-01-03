@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
 import net.runelite.api.events.StatChanged;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -36,6 +37,8 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	@Getter
 	private boolean magicLevelMeetsSpellReq;
 
+	private AutocastSpell currentAutocastSpell;
+
 	@Inject
 	private Client client;
 
@@ -60,21 +63,20 @@ public class SkillLevelNotificationsPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		log.info("SkillLevelNotificationsPlugin started!");
-		clientThread.invoke(this::initInfoBox);
-		if (client.getGameState() == GameState.LOGGED_IN)
-		{
-		}
+		clientThread.invoke(this::startPlugin);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		log.info("SkillLevelNotificationsPlugin stopped!");
-		if (client.getGameState() == GameState.LOGGED_IN)
-		{
-			infoBoxManager.removeInfoBox(autocastSpellInfoBox);
-			autocastSpellInfoBox = null;
-		}
+		clientThread.invoke(this::shutdownPlugin);
+	}
+
+	@Subscribe
+	public void onVarbitChanged()
+	{
+
 	}
 
 	@Subscribe
@@ -106,10 +108,16 @@ public class SkillLevelNotificationsPlugin extends Plugin
 		}
 	}
 
-	private void initInfoBox()
+	private void startPlugin()
 	{
 		autocastSpellInfoBox = createAutocastSpellInfoBox();
 		infoBoxManager.addInfoBox(autocastSpellInfoBox);
+	}
+
+	private void shutdownPlugin()
+	{
+		infoBoxManager.removeInfoBox(autocastSpellInfoBox);
+		autocastSpellInfoBox = null;
 	}
 
 	private AutocastSpellInfoBox createAutocastSpellInfoBox() {
