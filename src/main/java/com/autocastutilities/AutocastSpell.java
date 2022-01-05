@@ -14,7 +14,7 @@ import java.util.Map;
 @Getter
 enum AutocastSpell
 {
-    NOSPELL("No spell selected", Varbits.AUTOCAST_SPELL, SpriteID.ROUND_CHECK_BOX_CROSSED , -1, 0),
+    NO_SPELL("No spell selected", Varbits.AUTOCAST_SPELL, SpriteID.ROUND_CHECK_BOX_CROSSED , -1, 0),
 
     WIND_STRIKE("Wind Strike", Varbits.AUTOCAST_SPELL, SpriteID.SPELL_WIND_STRIKE, 1 , 1),
     WATER_STRIKE("Water Strike", Varbits.AUTOCAST_SPELL, SpriteID.SPELL_WATER_STRIKE, 5 , 2),
