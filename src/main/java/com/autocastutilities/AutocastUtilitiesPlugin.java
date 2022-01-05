@@ -22,7 +22,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import java.awt.image.BufferedImage;
 
 /*
-TODO: Work on Overlay class to replace infobox class
 TODO: Add remaining spells to AutocastSpells enum.
  */
 
@@ -35,7 +34,7 @@ TODO: Add remaining spells to AutocastSpells enum.
 public class AutocastUtilitiesPlugin extends Plugin
 {
 	@Getter
-	private boolean magicLevelMeetsSpellReq;
+	private boolean magicLevelTooLowForSpell;
 
 	@Getter
 	private AutocastSpell currentAutocastSpell;
@@ -86,6 +85,7 @@ public class AutocastUtilitiesPlugin extends Plugin
 	@Subscribe
 	public void onStatChanged(StatChanged event)
 	{
+
 		Skill skill = event.getSkill();
 		int xp = event.getXp();
 		int statLevel = event.getLevel();
@@ -98,13 +98,13 @@ public class AutocastUtilitiesPlugin extends Plugin
 			AutocastSpell autocastSpell = AutocastSpell.getAutocastSpell(autocastSpellID);
 			if (boostedLevel < autocastSpell.getLevelRequirement())
 			{
-				magicLevelMeetsSpellReq = false;
+				magicLevelTooLowForSpell = true;
 				// TODO: Create function that shows NO_SPELL on the infobox without changing current spell
 				sendChatMessage(AUTOCAST_UNEQUIP_NOTIFICATION_MESSAGE);
 			}
 			else
 			{
-				magicLevelMeetsSpellReq = true;
+				magicLevelTooLowForSpell = false;
 			}
 			// For debug
 			System.out.println("Skill: " + skill.getName() + ", xp: " + String.valueOf(xp) + ", statLevel: " + String.valueOf(statLevel) + ", boostedLevel: " + String.valueOf(boostedLevel));
