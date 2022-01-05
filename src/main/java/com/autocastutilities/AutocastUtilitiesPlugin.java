@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
-import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.StatChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
@@ -20,7 +19,6 @@ import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
-//import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import java.awt.image.BufferedImage;
 
 /*
@@ -44,8 +42,6 @@ public class AutocastUtilitiesPlugin extends Plugin
 
 	private static final String AUTOCAST_UNEQUIP_NOTIFICATION_MESSAGE = "Your magic level has dropped below what is required to autocast your spell.";
 
-//	private AutocastSpellInfoBox autocastSpellInfoBox;
-
 	@Inject
 	private AutocastUtilitiesConfig config;
 
@@ -54,9 +50,6 @@ public class AutocastUtilitiesPlugin extends Plugin
 
 	@Inject
 	private Client client;
-
-//	@Inject
-//	private InfoBoxManager infoBoxManager;
 
 	@Inject
 	private SpriteManager spriteManager;
@@ -88,7 +81,6 @@ public class AutocastUtilitiesPlugin extends Plugin
 	public void onVarbitChanged(VarbitChanged event)
 	{
 		updateAutocastSpell();
-//		updateAutocastSpellInfoBox();
 	}
 
 	@Subscribe
@@ -107,7 +99,6 @@ public class AutocastUtilitiesPlugin extends Plugin
 			if (boostedLevel < autocastSpell.getLevelRequirement())
 			{
 				magicLevelMeetsSpellReq = false;
-//				currentAutocastSpell = AutocastSpell.NO_SPELL;		// do not want to do this
 				// TODO: Create function that shows NO_SPELL on the infobox without changing current spell
 				sendChatMessage(AUTOCAST_UNEQUIP_NOTIFICATION_MESSAGE);
 			}
@@ -130,16 +121,12 @@ public class AutocastUtilitiesPlugin extends Plugin
 		{
 			currentAutocastSpell = AutocastSpell.NO_SPELL;
 		}
-//		autocastSpellInfoBox = createAutocastSpellInfoBox();
-//		infoBoxManager.addInfoBox(autocastSpellInfoBox);
 		overlayManager.add(autocastOverlay);
 	}
 
 	private void shutdownPlugin()
 	{
-//		infoBoxManager.removeInfoBox(autocastSpellInfoBox);
 		overlayManager.remove(autocastOverlay);
-//		autocastSpellInfoBox = null;
 	}
 
 	private void updateAutocastSpell() {
@@ -175,21 +162,6 @@ public class AutocastUtilitiesPlugin extends Plugin
 		AutocastSpell newAutocastSpell = AutocastSpell.getAutocastSpell(autocastSpellID);
 		return newAutocastSpell;
 	}
-
-//	private AutocastSpellInfoBox createAutocastSpellInfoBox() {
-//		BufferedImage image = spriteManager.getSprite(SpriteID.SPELL_WIND_STRIKE, 0);
-//		return new AutocastSpellInfoBox(image, this, "Wind Strike");
-//	}
-
-//	private void updateAutocastSpellInfoBox()
-//	{
-//		if (currentAutocastSpell == null) { return; }
-//		BufferedImage image = spriteManager.getSprite(currentAutocastSpell.getSpriteID(), 0);
-//		AutocastSpellInfoBox newInfoBox = new AutocastSpellInfoBox(image, this, currentAutocastSpell.getName());
-//		infoBoxManager.removeInfoBox(autocastSpellInfoBox);
-//		autocastSpellInfoBox = newInfoBox;
-//		infoBoxManager.addInfoBox(autocastSpellInfoBox);
-//	}
 
 	// Borrowed from DailyTasksPlugin.java
 	private void sendChatMessage(String chatMessage)
