@@ -23,6 +23,7 @@ import java.awt.image.BufferedImage;
 
 /*
 TODO: Add remaining spells to AutocastSpells enum.
+TODO: Only show overlay when player is equipping a staff or other autocastable weapon.
  */
 
 @Slf4j

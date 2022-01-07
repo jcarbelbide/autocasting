@@ -1,10 +1,9 @@
 package net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities;
 
 import lombok.AllArgsConstructor;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
-import net.runelite.client.plugins.discord.DiscordConfig;
+import net.runelite.client.config.*;
+
+import java.awt.*;
 
 @ConfigGroup("autocastutilities")
 public interface AutocastUtilitiesConfig extends Config
@@ -33,14 +32,54 @@ public interface AutocastUtilitiesConfig extends Config
     default AutocastUtilitiesConfig.OverlayNotificationType overlayNotificationType() { return AutocastUtilitiesConfig.OverlayNotificationType.FLASH; }
 
     @ConfigItem(
-            keyName = "greeting",
-            name = "Welcome Greeting",
-            description = "The message to show to the user when they login",
+            keyName = "showOverlay",
+            name = "Show Overlay",
+            description = "Show/hide overlay",
             position = 1
     )
-    default String greeting()
+    default boolean showOverlay()
     {
-        return "Hello";
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "showSpellName",
+            name = "Show Spell Name",
+            description = "Show/hide spell name",
+            position = 2
+    )
+    default boolean showSpellName()
+    {
+        return true;
+    }
+
+    @ConfigItem(
+            keyName = "showSpellIcon",
+            name = "Show Spell Icon",
+            description = "Show/hide spell icon",
+            position = 3
+    )
+    default boolean showSpellIcon() { return true; }
+
+    @Alpha
+    @ConfigItem(
+            keyName = "overlayFlashColor",
+            name = "Overlay Flash Color",
+            description = "Color of Autocast overlay when flashing/solid",
+            position = 4
+    )
+    default Color getOverlayColor() { return AutocastOverlay.RED_FLASH_COLOR; }
+
+    @Range(min = AutocastOverlay.MINIMUM_COUNTER_FLASH_PERIOD)
+    @ConfigItem(
+            keyName = "flashPeriod",
+            name = "Overlay Flash Period",
+            description = "Period at which the Autocast overlay flashes. Higher # equals slower flash. Lowest # allowed is 1.",
+            position = 5
+    )
+    default int getFlashPeriod()
+    {
+        return AutocastOverlay.DEFAULT_COUNTER_FLASH_PERIOD;
     }
 
 

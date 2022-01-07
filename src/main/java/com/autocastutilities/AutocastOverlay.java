@@ -1,54 +1,75 @@
 package net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities;
 
 import com.google.inject.Inject;
+import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.components.*;
 import net.runelite.client.ui.overlay.components.ComponentOrientation;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 class AutocastOverlay extends OverlayPanel
 {
     private int counter = 0;
-    private final int COUNTER_FLASH_PERIOD = 40;
-    private final Color RED_FLASH_COLOR = new Color(140, 55, 0, 255);
+    public static final int DEFAULT_COUNTER_FLASH_PERIOD = 40;
+    public static final int MINIMUM_COUNTER_FLASH_PERIOD = 1;
+    public static final Color RED_FLASH_COLOR = new Color(140, 55, 0, 255);
+    private final int SPELL_NAME_AND_ICON_GAP = 4;
+    private boolean equippedWeaponType;
 
     private final AutocastUtilitiesPlugin plugin;
     private final AutocastUtilitiesConfig config;
+    private Client client;
 
     @Inject
-    AutocastOverlay(AutocastUtilitiesPlugin plugin, AutocastUtilitiesConfig config)
+    AutocastOverlay(AutocastUtilitiesPlugin plugin, AutocastUtilitiesConfig config, Client client)
     {
         super(plugin);
         this.plugin = plugin;
         this.config = config;
+        this.client = client;
         super.setDynamicFont(true);
     }
 
     @Override
-    public Dimension render(Graphics2D graphics) {
-//        String title = "Autocasting";
-//        panelComponent.getChildren().add(
-//                TitleComponent.builder()
-//                        .text(title)
-//                        .build());
+    public Dimension render(Graphics2D graphics)
+    {
+        if (!config.showOverlay()) { return null; }
+        else if (!config.showSpellName() && !config.showSpellIcon()) { return null; }
+        else if (config.showSpellName() && config.showSpellIcon())
+        {
+            TitleComponent spellNameComponent = TitleComponent.builder()
+                    .text(getCurrentSpellName())
+                    .build();
 
-        TitleComponent spellNameComponent = TitleComponent.builder()
-                .text(getCurrentSpellName())
-                .build();
-        ImageComponent spellImageComponent = new ImageComponent(getCurrentSpellImage());
+            ImageComponent spellImageComponent = new ImageComponent(getCurrentSpellImage());
 
-        SplitComponent spellNameIcon = SplitComponent.builder()
-                .first(spellNameComponent)
-                .second(spellImageComponent)
-                .orientation(ComponentOrientation.HORIZONTAL)
-                .build();
+            SplitComponent spellNameIcon = SplitComponent.builder()
+                    .first(spellNameComponent)
+                    .second(spellImageComponent)
+                    .orientation(ComponentOrientation.HORIZONTAL)
+                    .gap(new Point(SPELL_NAME_AND_ICON_GAP, 0))
+                    .build();
 
-        panelComponent.getChildren().add(
-                spellNameIcon);
+            panelComponent.getChildren().add(
+                    spellNameIcon);
+        }
+        else if(config.showSpellName() && !config.showSpellIcon())
+        {
+            TitleComponent spellNameComponent = TitleComponent.builder()
+                    .text(getCurrentSpellName())
+                    .build();
+            panelComponent.getChildren().add(
+                    spellNameComponent);
+        }
+        else if (!config.showSpellName() && config.showSpellIcon())
+        {
+            ImageComponent spellImageComponent = new ImageComponent(getCurrentSpellImage());
+            panelComponent.getChildren().add(
+                    spellImageComponent);
+        }
+        else { return null; }
 
         panelComponent.setPreferredSize(new Dimension(
                 graphics.getFontMetrics().stringWidth(getCurrentSpellName()) + 10,
@@ -73,9 +94,9 @@ class AutocastOverlay extends OverlayPanel
 
     private void flashBackground()
     {
-        if (plugin.isMagicLevelTooLowForSpell() && (++counter % COUNTER_FLASH_PERIOD > COUNTER_FLASH_PERIOD / 2))
+        if (plugin.isMagicLevelTooLowForSpell() && (++counter % config.getFlashPeriod() > config.getFlashPeriod() / 2))
         {
-            panelComponent.setBackgroundColor(RED_FLASH_COLOR);
+            panelComponent.setBackgroundColor(config.getOverlayColor());
         }
         else
         {
@@ -87,7 +108,7 @@ class AutocastOverlay extends OverlayPanel
     {
         if (plugin.isMagicLevelTooLowForSpell())
         {
-            panelComponent.setBackgroundColor(RED_FLASH_COLOR);
+            panelComponent.setBackgroundColor(config.getOverlayColor());
         }
         else
         {
@@ -104,4 +125,9 @@ class AutocastOverlay extends OverlayPanel
     {
         return plugin.getCurrentAutocastSpell().getName();
     }
+
+//    private boolean isEquippedWeaponMagic()
+//    {
+//
+//    }
 }
