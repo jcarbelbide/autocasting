@@ -16,7 +16,6 @@ class AutocastOverlay extends OverlayPanel
     public static final int MINIMUM_COUNTER_FLASH_PERIOD = 1;
     public static final Color RED_FLASH_COLOR = new Color(140, 55, 0, 255);
     private final int SPELL_NAME_AND_ICON_GAP = 4;
-    private boolean equippedWeaponType;
 
     private final AutocastUtilitiesPlugin plugin;
     private final AutocastUtilitiesConfig config;
@@ -35,6 +34,7 @@ class AutocastOverlay extends OverlayPanel
     @Override
     public Dimension render(Graphics2D graphics)
     {
+        if (!plugin.isEquippedWeaponMagic()) { return null; }
         if (!config.showOverlay()) { return null; }
         else if (!config.showSpellName() && !config.showSpellIcon()) { return null; }
         else if (config.showSpellName() && config.showSpellIcon())
@@ -126,8 +126,4 @@ class AutocastOverlay extends OverlayPanel
         return plugin.getCurrentAutocastSpell().getName();
     }
 
-//    private boolean isEquippedWeaponMagic()
-//    {
-//
-//    }
 }
