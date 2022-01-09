@@ -82,5 +82,13 @@ public interface AutocastUtilitiesConfig extends Config
         return AutocastOverlay.DEFAULT_COUNTER_FLASH_PERIOD;
     }
 
+    @ConfigItem(
+            keyName = "sendGameMessage",
+            name = "Send Game Message",
+            description = "Sends a game message when your magic level falls below the level required for your autocast spell.",
+            position = 6
+    )
+    default boolean sendGameMessage() { return true; }
+
 
 }

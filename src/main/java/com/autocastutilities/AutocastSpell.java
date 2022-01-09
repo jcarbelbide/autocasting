@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.SpriteID;
-import net.runelite.api.Varbits;
 
 import java.util.Map;
 

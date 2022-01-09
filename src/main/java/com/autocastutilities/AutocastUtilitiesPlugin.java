@@ -18,11 +18,9 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities.dependencies.attackstyles.AttackStyle;
 import net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities.dependencies.attackstyles.WeaponType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import java.awt.image.BufferedImage;
-import java.util.Arrays;
 
 /*
 TODO: Add remaining spells to AutocastSpells enum.
@@ -32,8 +30,8 @@ TODO: Only show overlay when player is equipping a staff or other autocastable w
 @Slf4j
 @PluginDescriptor(
 	name = "Autocast Utilities",
-	description = "Notifies client when certain skills fall under a threshold.",
-	tags = {"skill", "notifier", "notifications", "mage", "magic", "reduced", "reduction", "level", "drain", "autocast", "cast"}
+	description = "Notifies client when magic level falls below required level for spell.",
+	tags = {"notifier", "notifications", "mage", "magic", "reduced", "reduction", "level", "drain", "autocast", "cast", "utilities"}
 )
 public class AutocastUtilitiesPlugin extends Plugin
 {
@@ -76,51 +74,13 @@ public class AutocastUtilitiesPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-//		log.info("AutocastUtilities started!");
 		clientThread.invoke(this::startPlugin);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-//		log.info("AutocastUtilities stopped!");
 		clientThread.invoke(this::shutdownPlugin);
-	}
-
-	@Subscribe
-	public void onVarbitChanged(VarbitChanged event)
-	{
-		updateAutocastSpell();
-		updateIsEquippedWeaponMagic();
-	}
-
-	@Subscribe
-	public void onStatChanged(StatChanged event)
-	{
-
-		Skill skill = event.getSkill();
-		int statLevel = event.getLevel();
-		int boostedLevel = event.getBoostedLevel();
-
-		if (skill.getName().equals(Skill.MAGIC.getName()))
-		{
-			// Now need to check if new boostedLevel is still high enough for the autocast spell
-			int autocastSpellID = client.getVarbitValue(VARBIT_AUTOCAST_SPELL);
-			AutocastSpell autocastSpell = AutocastSpell.getAutocastSpell(autocastSpellID);
-			if (boostedLevel < autocastSpell.getLevelRequirement())
-			{
-				magicLevelTooLowForSpell = true;
-				// TODO: Create function that shows NO_SPELL on the infobox without changing current spell
-				sendChatMessage(AUTOCAST_UNEQUIP_NOTIFICATION_MESSAGE);
-			}
-			else
-			{
-				magicLevelTooLowForSpell = false;
-			}
-			// For debug
-//			System.out.println("Skill: " + skill.getName() + ", statLevel: " + String.valueOf(statLevel) + ", boostedLevel: " + String.valueOf(boostedLevel));
-//			System.out.println("Level Req: " + String.valueOf(autocastSpell.getLevelRequirement()) + " Name: " + String.valueOf(autocastSpell.getName()) + " ID: " + String.valueOf(autocastSpell.getAutocastSpellID()) );
-		}
 	}
 
 	private void startPlugin()
@@ -140,6 +100,37 @@ public class AutocastUtilitiesPlugin extends Plugin
 		overlayManager.remove(autocastOverlay);
 	}
 
+	@Subscribe
+	public void onVarbitChanged(VarbitChanged event)
+	{
+		updateAutocastSpell();
+		updateIsEquippedWeaponMagic();
+	}
+
+	@Subscribe
+	public void onStatChanged(StatChanged event)
+	{
+
+		Skill skill = event.getSkill();
+		int boostedLevel = event.getBoostedLevel();
+
+		if (skill.getName().equals(Skill.MAGIC.getName()))
+		{
+			// Now need to check if new boostedLevel is still high enough for the autocast spell
+			int autocastSpellID = client.getVarbitValue(VARBIT_AUTOCAST_SPELL);
+			AutocastSpell autocastSpell = AutocastSpell.getAutocastSpell(autocastSpellID);
+			if (boostedLevel < autocastSpell.getLevelRequirement())
+			{
+				magicLevelTooLowForSpell = true;
+				if (config.sendGameMessage()) { sendChatMessage(AUTOCAST_UNEQUIP_NOTIFICATION_MESSAGE); }
+			}
+			else
+			{
+				magicLevelTooLowForSpell = false;
+			}
+		}
+	}
+
 	private void updateAutocastSpell() {
 		// Get new autocast spell.
 		AutocastSpell newAutocastSpell = getAutocastSpellFromClient();
@@ -148,7 +139,7 @@ public class AutocastUtilitiesPlugin extends Plugin
 		// If the new spell is not null, and there is currently no autocast spell selected, update it
 		// TODO: The following if else tree can be mostly replaced with "currentAutocastSpell = newAutocastSpell;" for all cases, but
 		// 		but I'm not sure how expensive that can add up to be with varbits changing all the time. Maybe it's better
-		// 		than checking these conditions every time, i dont know. Someone with more knowledge, please let me know.
+		// 		than checking these conditions every time, I dont know. Someone with more knowledge, please let me know.
 		if (currentAutocastSpell == null)
 		{
 			currentAutocastSpell = newAutocastSpell;
@@ -162,16 +153,7 @@ public class AutocastUtilitiesPlugin extends Plugin
 		{
 			// Otherwise, update the spell.
 			currentAutocastSpell = newAutocastSpell;
-//			System.out.println("Autocast spell change detected. New spell: " + currentAutocastSpell.getName());
 		}
-	}
-
-	private AutocastSpell getAutocastSpellFromClient()
-	{
-		// Get new autocast spell.
-		int autocastSpellID = client.getVarbitValue(VARBIT_AUTOCAST_SPELL);
-		AutocastSpell newAutocastSpell = AutocastSpell.getAutocastSpell(autocastSpellID);
-		return newAutocastSpell;
 	}
 
 	private void updateIsEquippedWeaponMagic()
@@ -181,17 +163,20 @@ public class AutocastUtilitiesPlugin extends Plugin
 		if (newWeaponType == currentWeaponType) { return; }
 		currentWeaponType = newWeaponType;
 
+		isEquippedWeaponMagic = newWeaponType == WeaponType.TYPE_18 ||
+								newWeaponType == WeaponType.TYPE_21;
+
+		// The below types do have a casting option, but do not autocast spells, so leave them out.
 		// TYPE_6: These are salamanders. They do not autocast, but give magic xp, so technically have a "casting" option.
-		// TYPE_23: Trident, Sanguinesti, etc. Do not have autocast options, so
-		if (newWeaponType == WeaponType.TYPE_6 || newWeaponType == WeaponType.TYPE_23)
-		{
-			isEquippedWeaponMagic = false;
-		}
-		else
-		{
-			isEquippedWeaponMagic = Arrays.stream(newWeaponType.getAttackStyles()).anyMatch(style -> style == AttackStyle.CASTING) ||
-									Arrays.stream(newWeaponType.getAttackStyles()).anyMatch(style -> style == AttackStyle.DEFENSIVE_CASTING);
-		}
+		// TYPE_23: Trident, Sanguinesti, etc. Do not have autocast options, so do not show overlay when these are equipped.
+	}
+
+	private AutocastSpell getAutocastSpellFromClient()
+	{
+		// Get new autocast spell.
+		int autocastSpellID = client.getVarbitValue(VARBIT_AUTOCAST_SPELL);
+		AutocastSpell newAutocastSpell = AutocastSpell.getAutocastSpell(autocastSpellID);
+		return newAutocastSpell;
 	}
 
 	// Borrowed from DailyTasksPlugin.java
