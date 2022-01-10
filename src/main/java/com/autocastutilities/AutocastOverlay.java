@@ -106,7 +106,7 @@ class AutocastOverlay extends OverlayPanel
 
     private void solidBackground()
     {
-        if (plugin.isMagicLevelTooLowForSpell())
+        if (plugin.isMagicLevelTooLowForSpell() && config.overlayNotificationType() == AutocastUtilitiesConfig.OverlayNotificationType.SOLID)
         {
             panelComponent.setBackgroundColor(config.getOverlayColor());
         }

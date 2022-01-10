@@ -12,7 +12,8 @@ public interface AutocastUtilitiesConfig extends Config
     enum OverlayNotificationType
     {
         FLASH("Flash"),
-        SOLID("Solid");
+        SOLID("Solid"),
+        NONE("None");
 
         private final String value;
 
