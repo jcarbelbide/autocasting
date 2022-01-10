@@ -1,4 +1,4 @@
-#Dependencies
+# Dependencies
 
 This plugin depends on the following classes from the Attack Styles plugin:
 1. AttackStyle
