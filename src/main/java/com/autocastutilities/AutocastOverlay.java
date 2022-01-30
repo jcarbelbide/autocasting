@@ -1,7 +1,6 @@
 package net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities;
 
 import com.google.inject.Inject;
-import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.components.*;
 import net.runelite.client.ui.overlay.components.ComponentOrientation;
@@ -19,15 +18,13 @@ class AutocastOverlay extends OverlayPanel
 
     private final AutocastUtilitiesPlugin plugin;
     private final AutocastUtilitiesConfig config;
-    private Client client;
 
     @Inject
-    AutocastOverlay(AutocastUtilitiesPlugin plugin, AutocastUtilitiesConfig config, Client client)
+    AutocastOverlay(AutocastUtilitiesPlugin plugin, AutocastUtilitiesConfig config)
     {
         super(plugin);
         this.plugin = plugin;
         this.config = config;
-        this.client = client;
         super.setDynamicFont(true);
     }
 
