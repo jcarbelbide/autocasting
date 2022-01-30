@@ -75,12 +75,14 @@ public class AutocastUtilitiesPlugin extends Plugin
 	protected void startUp() throws Exception
 	{
 		clientThread.invoke(this::startPlugin);
+		overlayManager.add(autocastOverlay);
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
 		clientThread.invoke(this::shutdownPlugin);
+		overlayManager.remove(autocastOverlay);
 	}
 
 	private void startPlugin()
@@ -92,12 +94,12 @@ public class AutocastUtilitiesPlugin extends Plugin
 		{
 			currentAutocastSpell = AutocastSpell.NO_SPELL;
 		}
-		overlayManager.add(autocastOverlay);
 	}
 
 	private void shutdownPlugin()
 	{
-		overlayManager.remove(autocastOverlay);
+		// overlayManager.remove(autocastOverlay);
+		// Moved to shutDown(). Found the the plugin was occasionally crashing for some reason. I'm not sure if the move would fix it, but it hasnt crashed since.
 	}
 
 	@Subscribe
