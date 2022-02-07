@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities;
+package com.autocastutilities;
 
 import lombok.AllArgsConstructor;
 import net.runelite.client.config.*;
