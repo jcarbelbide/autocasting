@@ -28,7 +28,7 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.Map;
 
-import static net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities.dependencies.attackstyles.AttackStyle.*;
+import static com.autocastutilities.dependencies.attackstyles.AttackStyle.*;
 
 public enum WeaponType
 {
