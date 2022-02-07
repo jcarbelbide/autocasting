@@ -18,7 +18,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities.dependencies.attackstyles.WeaponType;
+import com.autocastutilities.dependencies.attackstyles.WeaponType;
 import net.runelite.client.ui.overlay.OverlayManager;
 import java.awt.image.BufferedImage;
 
