@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.autocastutilities.src.main.java.com.autocastutilities;
+package com.autocastutilities;
 
 import com.google.common.collect.ImmutableMap;
 import lombok.Getter;

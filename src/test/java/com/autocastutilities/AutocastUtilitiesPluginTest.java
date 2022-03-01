@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.autocastutilities.src.test.java.com.autocastutilities;
+package com.autocastutilities;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
