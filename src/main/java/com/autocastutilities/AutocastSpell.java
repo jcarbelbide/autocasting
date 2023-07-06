@@ -69,7 +69,7 @@ enum AutocastSpell
     UNDEAD_GRASP("Undead Grasp", SpriteID.SPELL_UNDEAD_GRASP, 79, 58),
 
 
-    CLAWS_OF_GUTHIX("Claws of Guthix", SpriteID.SPELL_CLAWS_OF_GUTHIC, 60, 19),
+    CLAWS_OF_GUTHIX("Claws of Guthix", SpriteID.SPELL_CLAWS_OF_GUTHIX, 60, 19),
     FLAMES_OF_ZAMORAK("Flames of Zamorak", SpriteID.SPELL_FLAMES_OF_ZAMORAK, 60, 20),
     SARADOMIN_STRIKE("Saradomin Strike", SpriteID.SPELL_SARADOMIN_STRIKE, 60, 52),
 
