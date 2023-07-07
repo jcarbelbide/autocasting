@@ -14,7 +14,7 @@ such as desktop notifications, chat messages, or **bright red blinking alert box
 ![Example 2](example2.png?raw=true "An alert when you don't have enough runes to autocast")
 
 ### Another alert when you lose the magic level to autocast
-![Example 3](example2.png?raw=true "Another alert when you don't have the magic level to autocast")
+![Example 3](example3.png?raw=true "Another alert when you don't have the magic level to autocast")
 
 ## Configuration
 The following settings are configurable:
