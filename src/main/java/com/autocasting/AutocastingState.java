@@ -66,6 +66,10 @@ public class AutocastingState
 	@Setter
 	private int castsRemaining;
 
+	@Getter
+	@Setter
+	private boolean banking;
+
 	public void updateAutocastSpell()
 	{
 		// Get new autocast spell.

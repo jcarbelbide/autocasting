@@ -1,10 +1,7 @@
 package com.autocasting.datatypes;
 
-import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Getter

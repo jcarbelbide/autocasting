@@ -1,11 +1,5 @@
 package com.autocasting.datatypes;
 
-import com.google.common.collect.ImmutableMap;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import java.util.Map;
-
 /**
  * Base rune types, these are meant to be the costs for certain spells. Physical runes are similar but different,
  * as many different item ids can exist for the same rune (e.g. NMZ runes),

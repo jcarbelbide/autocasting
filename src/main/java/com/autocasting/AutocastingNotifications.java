@@ -20,6 +20,9 @@ public class AutocastingNotifications
 	private Notifier notifier;
 
 	@Inject
+	private AutocastingClientData clientData;
+
+	@Inject
 	private AutocastingConfig config;
 
 	@Inject
@@ -67,7 +70,9 @@ public class AutocastingNotifications
 
 	private void sendNotification(String message, AutocastingConstants.ChatNotificationType notificationSetting)
 	{
-		boolean shouldSendMessage = state.isConsideredInCombat() || config.notifyOutOfCombat();
+		boolean shouldSendMessage = (state.isConsideredInCombat() || config.notifyOutOfCombat())
+			&& !state.isBanking();
+
 		if (!shouldSendMessage)
 		{
 			return;

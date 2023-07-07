@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.ItemID;
 
-import javax.annotation.concurrent.Immutable;
 import java.util.Map;
 
 @RequiredArgsConstructor

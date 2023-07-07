@@ -1,12 +1,11 @@
 package com.autocasting;
 
-import com.autocasting.datatypes.Spell;
-
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.*;
+import net.runelite.api.widgets.WidgetID;
 import net.runelite.client.eventbus.Subscribe;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -57,6 +56,30 @@ public class AutocastingSubscriptions
 		if (varbitId == AutocastingConstants.VARBIT_FOUNTAIN_OF_RUNES)
 		{
 			state.updateCastsRemaining(false);
+		}
+	}
+
+	@Subscribe
+	public void onWidgetLoaded(WidgetLoaded event)
+	{
+		switch (event.getGroupId())
+		{
+			case WidgetID.BANK_GROUP_ID:
+			case WidgetID.BANK_INVENTORY_GROUP_ID:
+			case WidgetID.DEPOSIT_BOX_GROUP_ID:
+				state.setBanking(true);
+		}
+	}
+
+	@Subscribe
+	public void onWidgetClosed(WidgetClosed event)
+	{
+		switch (event.getGroupId())
+		{
+			case WidgetID.BANK_GROUP_ID:
+			case WidgetID.BANK_INVENTORY_GROUP_ID:
+			case WidgetID.DEPOSIT_BOX_GROUP_ID:
+				state.setBanking(false);
 		}
 	}
 

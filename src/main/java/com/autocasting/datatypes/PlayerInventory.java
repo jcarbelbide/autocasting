@@ -1,6 +1,5 @@
 package com.autocasting.datatypes;
 
-
 import lombok.Getter;
 import lombok.Setter;
 

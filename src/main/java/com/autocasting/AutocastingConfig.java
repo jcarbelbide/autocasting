@@ -170,8 +170,7 @@ public interface AutocastingConfig extends Config
 		return AutocastingConstants.DEFAULT_CAST_RUNES_THRESHOLD;
 	}
 
-
-	// DESKTOP NOTIFICATIONS
+	// NOTIFICATIONS
 
 	@ConfigSection(
 		name = "Notifications",

@@ -1,11 +1,9 @@
 package com.autocasting.datatypes;
 
-
 import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.EquipmentInventorySlot;
-import net.runelite.api.Item;
 import net.runelite.api.ItemID;
 
 import java.util.Map;

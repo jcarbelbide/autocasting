@@ -1,7 +1,6 @@
 package com.autocasting;
 
 import com.google.inject.Inject;
-import java.util.Objects;
 import javax.inject.Singleton;
 
 import net.runelite.client.ui.overlay.OverlayPanel;
