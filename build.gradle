@@ -23,7 +23,7 @@ dependencies {
 	testImplementation group: 'net.runelite', name:'jshell', version: runeLiteVersion
 }
 
-group = 'com.autocastutilities'
+group = 'com.autocasting'
 version = '1.0'
 
 tasks.withType(JavaCompile) {

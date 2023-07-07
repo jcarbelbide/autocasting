@@ -1,4 +1,4 @@
-# Autocast Utilities
+# Autocasting
 This plugin aims to notify the client when the player's magic level falls below the level 
 required for the autocast spell.
 

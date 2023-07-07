@@ -22,13 +22,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.autocastutilities.dependencies.attackstyles;
+package com.autocasting.dependencies.attackstyles;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
-
-import static com.autocastutilities.dependencies.attackstyles.AttackStyle.*;
+import lombok.Getter;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.ACCURATE;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.AGGRESSIVE;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.CASTING;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.CONTROLLED;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.DEFENSIVE;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.DEFENSIVE_CASTING;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.LONGRANGE;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.OTHER;
+import static com.autocasting.dependencies.attackstyles.AttackStyle.RANGING;
 
 public enum WeaponType
 {
@@ -59,8 +67,11 @@ public enum WeaponType
 	TYPE_24(ACCURATE, AGGRESSIVE, CONTROLLED, DEFENSIVE),
 	TYPE_25(CONTROLLED, AGGRESSIVE, null, DEFENSIVE),
 	TYPE_26(AGGRESSIVE, AGGRESSIVE, null, AGGRESSIVE),
-	TYPE_27(ACCURATE, null, null, OTHER);
+	TYPE_27(ACCURATE, null, null, OTHER),
+	TYPE_28(ACCURATE, ACCURATE, null, LONGRANGE),
+	TYPE_29(ACCURATE, AGGRESSIVE, AGGRESSIVE, DEFENSIVE);
 
+	@Getter
 	private final AttackStyle[] attackStyles;
 
 	private static final Map<Integer, WeaponType> weaponTypes;
@@ -79,12 +90,9 @@ public enum WeaponType
 
 	WeaponType(AttackStyle... attackStyles)
 	{
+		Preconditions.checkArgument(attackStyles.length == 4 || attackStyles.length == 6,
+			"WeaponType " + this + " does not have exactly 4 or 6 attack style arguments");
 		this.attackStyles = attackStyles;
-	}
-
-	public AttackStyle[] getAttackStyles()
-	{
-		return attackStyles;
 	}
 
 	public static WeaponType getWeaponType(int id)

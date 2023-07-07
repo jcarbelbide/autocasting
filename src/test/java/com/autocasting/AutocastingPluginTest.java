@@ -1,13 +1,13 @@
-package com.autocastutilities;
+package com.autocasting;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 
-public class AutocastUtilitiesPluginTest
+public class AutocastingPluginTest
 {
 	public static void main(String[] args) throws Exception
 	{
-		ExternalPluginManager.loadBuiltin(AutocastUtilitiesPlugin.class);
+		ExternalPluginManager.loadBuiltin(AutocastingPlugin.class);
 		RuneLite.main(args);
 	}
 }
