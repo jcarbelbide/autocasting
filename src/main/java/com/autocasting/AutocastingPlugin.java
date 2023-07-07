@@ -20,7 +20,7 @@ TODO: Only show overlay when player is equipping a staff or other autocastable w
 @PluginDescriptor(
 	name = "Autocasting",
 	description = "Notifies client when magic level falls below required level for spell.",
-	tags = {"notifier", "notifications", "mage", "magic", "reduced", "reduction", "level", "drain", "autocast", "autocasting", "cast", "utilities"}
+	tags = {"notifier", "notifications", "mage", "magic", "reduced", "reduction", "level", "drain", "autocasting", "autocast", "cast", "casts", "utilities", "brew", "runes", "tracker", "alert"}
 )
 public class AutocastingPlugin extends Plugin
 {
@@ -44,9 +44,6 @@ public class AutocastingPlugin extends Plugin
 
 	@Inject
 	private EventBus eventBus;
-
-	private boolean isInitialized = false;
-
 
 	@Override
 	protected void startUp() throws Exception
