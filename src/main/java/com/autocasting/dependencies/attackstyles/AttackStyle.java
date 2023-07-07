@@ -22,8 +22,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.autocastutilities.dependencies.attackstyles;
+package com.autocasting.dependencies.attackstyles;
 
+import lombok.Getter;
 import net.runelite.api.Skill;
 
 public enum AttackStyle
@@ -38,22 +39,14 @@ public enum AttackStyle
 	DEFENSIVE_CASTING("Defensive Casting", Skill.MAGIC, Skill.DEFENCE),
 	OTHER("Other");
 
+	@Getter
 	private final String name;
+	@Getter
 	private final Skill[] skills;
 
 	AttackStyle(String name, Skill... skills)
 	{
 		this.name = name;
 		this.skills = skills;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public Skill[] getSkills()
-	{
-		return skills;
 	}
 }
