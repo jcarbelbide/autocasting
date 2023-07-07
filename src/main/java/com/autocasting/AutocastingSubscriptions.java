@@ -1,6 +1,5 @@
 package com.autocasting;
 
-import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
@@ -16,19 +15,7 @@ import javax.inject.Singleton;
 public class AutocastingSubscriptions
 {
 	@Inject
-	private Client client;
-
-	@Inject
-	private AutocastingConfig config;
-
-	@Inject
-	private AutocastingNotifications notifications;
-
-	@Inject
 	private AutocastingState state;
-
-	@Inject
-	private AutocastingClientData clientData;
 
 	private boolean updateRunesPostClientTick = false;
 
