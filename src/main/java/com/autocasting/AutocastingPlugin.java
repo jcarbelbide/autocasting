@@ -51,11 +51,8 @@ public class AutocastingPlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		if (!isInitialized)
-		{
-			eventBus.register(subscriptions);
-			isInitialized = true;
-		}
+
+		eventBus.register(subscriptions);
 		clientThread.invoke(this::onStartup);
 		overlayManager.add(autocastOverlay);
 	}
@@ -63,6 +60,7 @@ public class AutocastingPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception
 	{
+		eventBus.unregister(subscriptions);
 		overlayManager.remove(autocastOverlay);
 	}
 
