@@ -20,9 +20,6 @@ public class AutocastingNotifications
 	private Notifier notifier;
 
 	@Inject
-	private AutocastingClientData clientData;
-
-	@Inject
 	private AutocastingConfig config;
 
 	@Inject

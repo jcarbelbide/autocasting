@@ -56,7 +56,7 @@ public class AutocastingPlugin extends Plugin
 			eventBus.register(subscriptions);
 			isInitialized = true;
 		}
-		clientThread.invoke(this::startPlugin);
+		clientThread.invoke(this::onStartup);
 		overlayManager.add(autocastOverlay);
 	}
 
@@ -66,16 +66,9 @@ public class AutocastingPlugin extends Plugin
 		overlayManager.remove(autocastOverlay);
 	}
 
-	private void startPlugin()
+	private void onStartup()
 	{
-		if (client.getGameState() == GameState.LOGGED_IN)
-		{
-			state.updateAutocastSpell();
-		}
-		else
-		{
-			state.setCurrentAutocastSpell(Spell.NO_SPELL);
-		}
+		state.setCurrentAutocastSpell(Spell.NO_SPELL);
 	}
 
 	@Provides

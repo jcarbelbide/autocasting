@@ -149,6 +149,12 @@ public class AutocastingRuneUtil
 
 	public int calculateCastsRemaining(Spell spell, Map<RuneType, Integer> runes)
 	{
+		if (runes == null)
+		{
+			// Called before inventory or equipment is initialized on login screens
+			return 0;
+		}
+
 		if (clientData.varbitValue(AutocastingConstants.VARBIT_FOUNTAIN_OF_RUNES) == 1)
 		{
 			return Integer.MAX_VALUE;
