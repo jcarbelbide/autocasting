@@ -136,7 +136,7 @@ public interface AutocastingConfig extends Config
 	@ConfigItem(
 		keyName = "flashPeriod",
 		name = "Overlay Flash Period",
-		description = "Period (in frames) at which the Autocast overlay flashes. Lower numbers flash faster.",
+		description = "Period (in hundredths of seconds) at which the Autocast overlay flashes. Lower numbers flash faster.",
 		position = 10,
 		section = overlaySettings
 	)

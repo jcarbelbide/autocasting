@@ -13,20 +13,22 @@ import java.awt.image.BufferedImage;
 @Singleton
 class AutocastingOverlay extends OverlayPanel
 {
-	private int counter = 0;
+	private float timeIntoFlash = 0f;
+	private boolean isFlashing = true;
+
 	private final int GAP_SIZE = 4;
 
-	private final AutocastingPlugin plugin;
 	private final AutocastingState state;
 	private final AutocastingConfig config;
+	private final AutocastingClientData clientData;
 
 	@Inject
-	AutocastingOverlay(AutocastingPlugin plugin, AutocastingConfig config, AutocastingState state)
+	AutocastingOverlay(AutocastingPlugin plugin, AutocastingConfig config, AutocastingState state, AutocastingClientData clientData)
 	{
 		super(plugin);
-		this.plugin = plugin;
 		this.config = config;
 		this.state = state;
+		this.clientData = clientData;
 		super.setDynamicFont(true);
 	}
 
@@ -153,13 +155,25 @@ class AutocastingOverlay extends OverlayPanel
 
 	private void flashBackground(boolean alert)
 	{
-		if (alert && (++counter % config.getFlashPeriod() > config.getFlashPeriod() / 2))
+		if (alert)
 		{
-			panelComponent.setBackgroundColor(config.overlayAlertColor());
+			panelComponent.setBackgroundColor(
+				isFlashing ? config.overlayAlertColor() : ComponentConstants.STANDARD_BACKGROUND_COLOR
+			);
+			// Increment time based on frame duration
+			timeIntoFlash += (float) 100 / clientData.fps();
+			if (timeIntoFlash >= config.getFlashPeriod())
+			{
+				isFlashing = !isFlashing;
+				timeIntoFlash = 0;
+			}
 		}
 		else
 		{
 			panelComponent.setBackgroundColor(ComponentConstants.STANDARD_BACKGROUND_COLOR);
+			// If not alerting, we reset to defaults such that next alert always starts with a full flash
+			isFlashing = true;
+			timeIntoFlash = 0;
 		}
 	}
 

@@ -47,6 +47,11 @@ public class AutocastingClientData
 		return client.getTickCount();
 	}
 
+	public int fps()
+	{
+		return client.getFPS();
+	}
+
 	public EnumComposition getRunepouchEnum()
 	{
 		return client.getEnum(EnumID.RUNEPOUCH_RUNE);

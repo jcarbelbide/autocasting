@@ -8,7 +8,7 @@ import java.awt.*;
 public final class AutocastingConstants
 {
 	// Config defaults
-	public static final int DEFAULT_COUNTER_FLASH_PERIOD = 40;
+	public static final int DEFAULT_COUNTER_FLASH_PERIOD = 60;
 	public static final int MINIMUM_COUNTER_FLASH_PERIOD = 1;
 	public static final int DEFAULT_CAST_RUNES_THRESHOLD = 1000;
 	public static final int MINIMUM_CAST_RUNES_THRESHOLD = 1;
