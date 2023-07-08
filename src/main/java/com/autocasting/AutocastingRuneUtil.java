@@ -118,11 +118,13 @@ public class AutocastingRuneUtil
 					runes.put(RuneType.DEATH, Integer.MAX_VALUE);
 					runes.put(RuneType.BLOOD, Integer.MAX_VALUE);
 					runes.put(RuneType.SOUL, Integer.MAX_VALUE);
+					break;
 				case INFINITE:
 					for (RuneType t : RuneType.values())
 					{
 						runes.put(t, Integer.MAX_VALUE);
 					}
+					break;
 			}
 		}
 

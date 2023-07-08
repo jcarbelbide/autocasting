@@ -6,7 +6,6 @@ import net.runelite.api.Varbits;
 import net.runelite.api.events.*;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.client.eventbus.Subscribe;
-import org.apache.commons.lang3.ArrayUtils;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,27 +21,26 @@ public class AutocastingSubscriptions
 	@Subscribe
 	public void onVarbitChanged(VarbitChanged event)
 	{
-		int varbitId = event.getVarbitId();
-		boolean isRelevantAutocastVarbit =
-			varbitId == AutocastingConstants.VARBIT_AUTOCAST_SPELL
-				|| varbitId == Varbits.EQUIPPED_WEAPON_TYPE;
-		if (isRelevantAutocastVarbit)
+		switch (event.getVarbitId())
 		{
-			state.updateAutocastSpell();
-			state.updateIsEquippedWeaponMagic();
-		}
-
-		boolean isRelevantRunePouchVarbit =
-			ArrayUtils.contains(AutocastingConstants.VARBIT_RUNE_POUCH_RUNES, varbitId)
-				|| ArrayUtils.contains(AutocastingConstants.VARBIT_RUNE_POUCH_AMOUNTS, varbitId);
-		if (isRelevantRunePouchVarbit)
-		{
-			updateRunesPostClientTick = true;
-		}
-
-		if (varbitId == AutocastingConstants.VARBIT_FOUNTAIN_OF_RUNES)
-		{
-			state.updateCastsRemaining(false);
+			case AutocastingConstants.VARBIT_AUTOCAST_SPELL:
+			case Varbits.EQUIPPED_WEAPON_TYPE:
+				state.updateAutocastSpell();
+				state.updateIsEquippedWeaponMagic();
+				break;
+			case Varbits.RUNE_POUCH_RUNE1:
+			case Varbits.RUNE_POUCH_RUNE2:
+			case Varbits.RUNE_POUCH_RUNE3:
+			case Varbits.RUNE_POUCH_RUNE4:
+			case Varbits.RUNE_POUCH_AMOUNT1:
+			case Varbits.RUNE_POUCH_AMOUNT2:
+			case Varbits.RUNE_POUCH_AMOUNT3:
+			case Varbits.RUNE_POUCH_AMOUNT4:
+				updateRunesPostClientTick = true;
+				break;
+			case AutocastingConstants.VARBIT_FOUNTAIN_OF_RUNES:
+				state.updateCastsRemaining(false);
+				break;
 		}
 	}
 
@@ -73,7 +71,7 @@ public class AutocastingSubscriptions
 	@Subscribe
 	public void onStatChanged(StatChanged event)
 	{
-		if (event.getSkill().getName().equals(Skill.MAGIC.getName()))
+		if (event.getSkill() == Skill.MAGIC)
 		{
 			// Now need to check if new boostedLevel is still high enough for the autocast spell
 			int boostedLevel = event.getBoostedLevel();

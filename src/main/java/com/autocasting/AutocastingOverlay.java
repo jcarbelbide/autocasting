@@ -3,6 +3,7 @@ package com.autocasting;
 import com.google.inject.Inject;
 import javax.inject.Singleton;
 
+import net.runelite.client.game.SpriteManager;
 import net.runelite.client.ui.overlay.OverlayPanel;
 import net.runelite.client.ui.overlay.components.*;
 import net.runelite.client.ui.overlay.components.ComponentOrientation;
@@ -23,6 +24,9 @@ class AutocastingOverlay extends OverlayPanel
 	private final AutocastingClientData clientData;
 
 	@Inject
+	private SpriteManager spriteManager;
+
+	@Inject
 	AutocastingOverlay(AutocastingPlugin plugin, AutocastingConfig config, AutocastingState state, AutocastingClientData clientData)
 	{
 		super(plugin);
@@ -35,15 +39,10 @@ class AutocastingOverlay extends OverlayPanel
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (!state.isEquippedWeaponMagic())
-		{
-			return null;
-		}
-		if (!config.showOverlay())
-		{
-			return null;
-		}
-		if (!config.showOverlayOutsideCombat() && !state.isConsideredInCombat())
+		boolean shouldRender = config.showOverlay()
+			&& state.isEquippedWeaponMagic()
+			&& (config.showOverlayOutsideCombat() || state.isConsideredInCombat());
+		if (!shouldRender)
 		{
 			return null;
 		}
@@ -191,7 +190,8 @@ class AutocastingOverlay extends OverlayPanel
 
 	private BufferedImage getCurrentSpellImage()
 	{
-		return state.getImage(state.getCurrentAutocastSpell().getSpriteID());
+		int spriteId = state.getCurrentAutocastSpell().getSpriteID();
+		return spriteManager.getSprite(spriteId, 0);
 	}
 
 	private String getCurrentSpellName()
