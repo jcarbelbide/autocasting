@@ -8,11 +8,8 @@ import com.autocasting.dependencies.attackstyles.WeaponType;
 import lombok.Getter;
 import lombok.Setter;
 
-import net.runelite.client.game.SpriteManager;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.awt.image.BufferedImage;
 import java.util.Map;
 
 @Singleton
@@ -26,9 +23,6 @@ public class AutocastingState
 
 	@Inject
 	private AutocastingNotifications notifications;
-
-	@Inject
-	private SpriteManager spriteManager;
 
 	@Getter
 	@Setter
@@ -185,10 +179,5 @@ public class AutocastingState
 		{
 			consideredInCombat = currentTick - lastCombatTick <= AutocastingConstants.OUT_OF_COMBAT_TICK_DELAY;
 		}
-	}
-
-	public BufferedImage getImage(int spriteID)
-	{
-		return spriteManager.getSprite(spriteID, 0);
 	}
 }
