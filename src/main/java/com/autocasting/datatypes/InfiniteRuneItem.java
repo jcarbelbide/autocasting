@@ -42,11 +42,17 @@ public enum InfiniteRuneItem
 	MYSTIC_STEAM_STAFF(ItemID.MYSTIC_STEAM_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
 	MYSTIC_LAVA_STAFF(ItemID.MYSTIC_LAVA_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
 
+	STEAM_BATTLESTAFF_OR(ItemID.STEAM_BATTLESTAFF_12795, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
+	MYSTIC_STEAM_STAFF_OR(ItemID.MYSTIC_STEAM_STAFF_12796, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
+	LAVA_BATTLESTAFF_OR(ItemID.LAVA_BATTLESTAFF_21198, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
+	MYSTIC_LAVA_STAFF_OR(ItemID.MYSTIC_LAVA_STAFF_21200, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
+
 	KODAI_WAND(ItemID.KODAI_WAND, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER}),
 	KODAI_WAND_23626(ItemID.KODAI_WAND_23626, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER}),
 
 	TOME_OF_WATER(ItemID.TOME_OF_WATER, EquipmentInventorySlot.SHIELD, new RuneType[]{RuneType.WATER}),
-	TOME_OF_FIRE(ItemID.TOME_OF_FIRE, EquipmentInventorySlot.SHIELD, new RuneType[]{RuneType.FIRE});
+	TOME_OF_FIRE(ItemID.TOME_OF_FIRE, EquipmentInventorySlot.SHIELD, new RuneType[]{RuneType.FIRE}),
+	TOME_OF_EARTH(ItemID.TOME_OF_EARTH, EquipmentInventorySlot.SHIELD, new RuneType[]{RuneType.EARTH});
 
 
 	@Getter
