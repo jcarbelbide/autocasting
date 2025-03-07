@@ -140,7 +140,8 @@ public class AutocastingState
 		currentWeaponType = newWeaponType;
 
 		isEquippedWeaponMagic = newWeaponType == WeaponType.TYPE_18 ||
-			newWeaponType == WeaponType.TYPE_21;
+								newWeaponType == WeaponType.TYPE_21 ||
+								newWeaponType == WeaponType.TYPE_22;
 
 		// The below types do have a casting option, but do not autocast spells, so leave them out.
 		// TYPE_6: These are salamanders. They do not autocast, but give magic xp, so technically have a "casting" option.
