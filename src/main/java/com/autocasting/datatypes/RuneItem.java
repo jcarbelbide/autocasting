@@ -42,6 +42,7 @@ public enum RuneItem
 	FIRE_RUNE_9699(ItemID.FIRE_RUNE_9699, new RuneType[]{RuneType.FIRE}),
 	FIRE_RUNE_11686(ItemID.FIRE_RUNE_11686, new RuneType[]{RuneType.FIRE}),
 	FIRE_RUNE_NZ(ItemID.FIRE_RUNE_NZ, new RuneType[]{RuneType.FIRE}),
+	SUNFIRE_RUNE(ItemID.SUNFIRE_RUNE, new RuneType[]{RuneType.FIRE}),
 
 	MIND_RUNE(ItemID.MIND_RUNE, new RuneType[]{RuneType.MIND}),
 	MIND_RUNE_6436(ItemID.MIND_RUNE_6436, new RuneType[]{RuneType.MIND}),
