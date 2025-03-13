@@ -285,7 +285,7 @@ public enum SpellCost
 	}),
 
 	UNDEAD_GRASP(58, new RuneTypeQuantity[]{
-		new RuneTypeQuantity(RuneType.DEATH, 1),
+		new RuneTypeQuantity(RuneType.BLOOD, 1),
 		new RuneTypeQuantity(RuneType.FIRE, 12)
 	});
 
