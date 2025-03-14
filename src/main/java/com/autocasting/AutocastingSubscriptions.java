@@ -4,7 +4,7 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.*;
-import net.runelite.api.widgets.WidgetID;
+import net.runelite.api.widgets.InterfaceID;
 import net.runelite.client.eventbus.Subscribe;
 
 import javax.inject.Inject;
@@ -49,9 +49,11 @@ public class AutocastingSubscriptions
 	{
 		switch (event.getGroupId())
 		{
-			case WidgetID.BANK_GROUP_ID:
-			case WidgetID.BANK_INVENTORY_GROUP_ID:
-			case WidgetID.DEPOSIT_BOX_GROUP_ID:
+			case InterfaceID.BANK:
+			case InterfaceID.BANK_INVENTORY:
+			case InterfaceID.DEPOSIT_BOX:
+			case InterfaceID.GROUP_STORAGE:
+			case InterfaceID.GROUP_STORAGE_INVENTORY:
 				state.setBanking(true);
 		}
 	}
@@ -61,9 +63,11 @@ public class AutocastingSubscriptions
 	{
 		switch (event.getGroupId())
 		{
-			case WidgetID.BANK_GROUP_ID:
-			case WidgetID.BANK_INVENTORY_GROUP_ID:
-			case WidgetID.DEPOSIT_BOX_GROUP_ID:
+			case InterfaceID.BANK:
+			case InterfaceID.BANK_INVENTORY:
+			case InterfaceID.DEPOSIT_BOX:
+			case InterfaceID.GROUP_STORAGE:
+			case InterfaceID.GROUP_STORAGE_INVENTORY:
 				state.setBanking(false);
 		}
 	}
