@@ -261,17 +261,17 @@ public enum SpellCost
 
 	INFERIOR_DEMONBANE(53, new RuneTypeQuantity[]{
 		new RuneTypeQuantity(RuneType.CHAOS, 1),
-		new RuneTypeQuantity(RuneType.FIRE, 4)
+		new RuneTypeQuantity(RuneType.FIRE, 3)
 	}),
 
 	SUPERIOR_DEMONBANE(54, new RuneTypeQuantity[]{
 		new RuneTypeQuantity(RuneType.SOUL, 1),
-		new RuneTypeQuantity(RuneType.FIRE, 8)
+		new RuneTypeQuantity(RuneType.FIRE, 5)
 	}),
 
 	DARK_DEMONBANE(55, new RuneTypeQuantity[]{
 		new RuneTypeQuantity(RuneType.SOUL, 2),
-		new RuneTypeQuantity(RuneType.FIRE, 12)
+		new RuneTypeQuantity(RuneType.FIRE, 7)
 	}),
 
 	GHOSTLY_GRASP(56, new RuneTypeQuantity[]{
