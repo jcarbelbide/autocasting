@@ -65,6 +65,11 @@ public class AutocastingNotifications
 		sendNotification(message, config.notifyOnLowCasts());
 	}
 
+	public void notifyNoSpellSelected()
+	{
+		sendNotification(AutocastingConstants.AUOTCAST_NOT_SELECTED_MESSAGE, config.notifyOnNoAutocastSelected());
+	}
+
 	private void sendNotification(String message, AutocastingConstants.ChatNotificationType notificationSetting)
 	{
 		boolean shouldSendMessage = (state.isConsideredInCombat() || config.notifyOutOfCombat())

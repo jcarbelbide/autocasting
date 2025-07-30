@@ -5,6 +5,7 @@ import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.*;
 import net.runelite.api.widgets.InterfaceID;
+import net.runelite.client.Notifier;
 import net.runelite.client.eventbus.Subscribe;
 
 import javax.inject.Inject;
@@ -16,6 +17,9 @@ public class AutocastingSubscriptions
 	@Inject
 	private AutocastingState state;
 
+	@Inject
+	private Notifier notifier;
+
 	private boolean updateRunesPostClientTick = false;
 
 	@Subscribe
@@ -24,9 +28,10 @@ public class AutocastingSubscriptions
 		switch (event.getVarbitId())
 		{
 			case AutocastingConstants.VARBIT_AUTOCAST_SPELL:
+				state.setRecentlySentNoSpellSelectedNotification(false);
 			case Varbits.EQUIPPED_WEAPON_TYPE:
-				state.updateAutocastSpell();
 				state.updateIsEquippedWeaponMagic();
+				state.updateAutocastSpell();
 				break;
 			case Varbits.RUNE_POUCH_RUNE1:
 			case Varbits.RUNE_POUCH_RUNE2:
@@ -55,6 +60,7 @@ public class AutocastingSubscriptions
 			case InterfaceID.GROUP_STORAGE:
 			case InterfaceID.GROUP_STORAGE_INVENTORY:
 				state.setBanking(true);
+				state.setRecentlySentNoSpellSelectedNotification(false);
 		}
 	}
 

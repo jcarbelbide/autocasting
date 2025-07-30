@@ -64,6 +64,10 @@ public class AutocastingState
 	@Setter
 	private boolean banking;
 
+	@Getter
+	@Setter
+	private boolean recentlySentNoSpellSelectedNotification;
+
 	public void updateAutocastSpell()
 	{
 		// Get new autocast spell.
@@ -71,6 +75,13 @@ public class AutocastingState
 		if (newAutocastSpell == null)
 		{
 			return;
+		}
+		if (newAutocastSpell.getVarbitValue() == Spell.NO_SPELL.getVarbitValue())
+		{
+			if (isEquippedWeaponMagic && !recentlySentNoSpellSelectedNotification) {
+				notifications.notifyNoSpellSelected();
+				recentlySentNoSpellSelectedNotification = true;
+			}
 		}
 
 		// If the new spell is not null, and there is currently no autocast spell selected, update it
