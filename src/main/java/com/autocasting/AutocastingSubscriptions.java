@@ -5,7 +5,6 @@ import net.runelite.api.Skill;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.*;
 import net.runelite.api.widgets.InterfaceID;
-import net.runelite.client.Notifier;
 import net.runelite.client.eventbus.Subscribe;
 
 import javax.inject.Inject;
@@ -16,9 +15,6 @@ public class AutocastingSubscriptions
 {
 	@Inject
 	private AutocastingState state;
-
-	@Inject
-	private Notifier notifier;
 
 	private boolean updateRunesPostClientTick = false;
 
