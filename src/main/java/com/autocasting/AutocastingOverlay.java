@@ -1,5 +1,6 @@
 package com.autocasting;
 
+import com.autocasting.datatypes.Spell;
 import com.google.inject.Inject;
 import javax.inject.Singleton;
 
@@ -141,7 +142,12 @@ class AutocastingOverlay extends OverlayPanel
 
 	private void configureBackground(int casts)
 	{
-		boolean shouldAlert = state.isMagicLevelTooLowForSpell() || (casts == 0 && state.hasActiveAutocast());
+		boolean shouldAlert = (
+			state.isMagicLevelTooLowForSpell()
+				|| (casts == 0 && state.hasActiveAutocast())
+				|| state.getCurrentAutocastSpell() == Spell.NO_SPELL
+		);
+
 		if (config.overlayAlertStyle() == AutocastingConstants.OverlayNotificationType.FLASH)
 		{
 			flashBackground(shouldAlert);
