@@ -47,6 +47,8 @@ public enum InfiniteRuneItem
 	LAVA_BATTLESTAFF_OR(ItemID.LAVA_BATTLESTAFF_21198, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
 	MYSTIC_LAVA_STAFF_OR(ItemID.MYSTIC_LAVA_STAFF_21200, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
 
+	TWINFLAME_STAFF(ItemID.TWINFLAME_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
+
 	KODAI_WAND(ItemID.KODAI_WAND, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER}),
 	KODAI_WAND_23626(ItemID.KODAI_WAND_23626, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER}),
 
