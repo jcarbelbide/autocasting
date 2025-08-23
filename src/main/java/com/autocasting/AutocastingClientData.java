@@ -2,6 +2,8 @@ package com.autocasting;
 
 import com.autocasting.datatypes.Spell;
 import net.runelite.api.*;
+import net.runelite.api.gameval.InventoryID;
+import net.runelite.api.gameval.VarbitID;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -14,7 +16,7 @@ public class AutocastingClientData
 
 	public int getAutocastVarbit()
 	{
-		return client.getVarbitValue(AutocastingConstants.VARBIT_AUTOCAST_SPELL);
+		return client.getVarbitValue(VarbitID.AUTOCAST_SPELL);
 	}
 
 	public Spell getAutocastSpell()
@@ -25,7 +27,7 @@ public class AutocastingClientData
 
 	public int getWeaponTypeId()
 	{
-		return client.getVarbitValue(Varbits.EQUIPPED_WEAPON_TYPE);
+		return client.getVarbitValue(VarbitID.COMBAT_WEAPON_CATEGORY);
 	}
 
 	// Based off StatusBarsPlugin.java
@@ -38,7 +40,7 @@ public class AutocastingClientData
 		}
 		final Actor interacting = localPlayer.getInteracting();
 		boolean fightingNPC = interacting instanceof NPC && ArrayUtils.contains(((NPC) interacting).getComposition().getActions(), "Attack");
-		boolean fightingPlayer = interacting instanceof Player && client.getVarbitValue(Varbits.PVP_SPEC_ORB) == 1;
+		boolean fightingPlayer = interacting instanceof Player && client.getVarbitValue(VarbitID.PVP_AREA_CLIENT) == 1;
 		return fightingNPC || fightingPlayer;
 	}
 
@@ -64,11 +66,11 @@ public class AutocastingClientData
 
 	public ItemContainer getInventory()
 	{
-		return client.getItemContainer(InventoryID.INVENTORY);
+		return client.getItemContainer(InventoryID.INV);
 	}
 
 	public ItemContainer getEquipment()
 	{
-		return client.getItemContainer(InventoryID.EQUIPMENT);
+		return client.getItemContainer(InventoryID.WORN);
 	}
 }

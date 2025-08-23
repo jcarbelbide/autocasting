@@ -2,6 +2,7 @@ package com.autocasting;
 
 import lombok.AllArgsConstructor;
 import net.runelite.api.Varbits;
+import net.runelite.api.gameval.VarbitID;
 
 import java.awt.*;
 
@@ -17,19 +18,17 @@ public final class AutocastingConstants
 	public static final Color RED_FLASH_COLOR = new Color(255, 0, 0, 186);
 
 	// Varbits
-	public static final int VARBIT_AUTOCAST_SPELL = 276;
-	public static final int VARBIT_FOUNTAIN_OF_RUNES = 4145;
 	public static final int[] VARBIT_RUNE_POUCH_RUNES = {
-		Varbits.RUNE_POUCH_RUNE1,
-		Varbits.RUNE_POUCH_RUNE2,
-		Varbits.RUNE_POUCH_RUNE3,
-		Varbits.RUNE_POUCH_RUNE4
+		VarbitID.RUNE_POUCH_TYPE_1,
+		VarbitID.RUNE_POUCH_TYPE_2,
+		VarbitID.RUNE_POUCH_TYPE_3,
+		VarbitID.RUNE_POUCH_TYPE_4,
 	};
 	public static final int[] VARBIT_RUNE_POUCH_AMOUNTS = {
-		Varbits.RUNE_POUCH_AMOUNT1,
-		Varbits.RUNE_POUCH_AMOUNT2,
-		Varbits.RUNE_POUCH_AMOUNT3,
-		Varbits.RUNE_POUCH_AMOUNT4
+		VarbitID.RUNE_POUCH_QUANTITY_1,
+		VarbitID.RUNE_POUCH_QUANTITY_2,
+		VarbitID.RUNE_POUCH_QUANTITY_3,
+		VarbitID.RUNE_POUCH_QUANTITY_4,
 	};
 
 	// Message constants

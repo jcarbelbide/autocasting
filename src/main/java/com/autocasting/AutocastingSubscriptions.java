@@ -1,10 +1,10 @@
 package com.autocasting;
 
-import net.runelite.api.InventoryID;
 import net.runelite.api.Skill;
-import net.runelite.api.Varbits;
+import net.runelite.api.gameval.InterfaceID;
+import net.runelite.api.gameval.InventoryID;
+import net.runelite.api.gameval.VarbitID;
 import net.runelite.api.events.*;
-import net.runelite.api.widgets.InterfaceID;
 import net.runelite.client.eventbus.Subscribe;
 
 import javax.inject.Inject;
@@ -23,23 +23,27 @@ public class AutocastingSubscriptions
 	{
 		switch (event.getVarbitId())
 		{
-			case AutocastingConstants.VARBIT_AUTOCAST_SPELL:
+			case VarbitID.AUTOCAST_SPELL:
 				state.setRecentlySentNoSpellSelectedNotification(false);
-			case Varbits.EQUIPPED_WEAPON_TYPE:
+			case VarbitID.COMBAT_WEAPON_CATEGORY:
 				state.updateIsEquippedWeaponMagic();
 				state.updateAutocastSpell();
 				break;
-			case Varbits.RUNE_POUCH_RUNE1:
-			case Varbits.RUNE_POUCH_RUNE2:
-			case Varbits.RUNE_POUCH_RUNE3:
-			case Varbits.RUNE_POUCH_RUNE4:
-			case Varbits.RUNE_POUCH_AMOUNT1:
-			case Varbits.RUNE_POUCH_AMOUNT2:
-			case Varbits.RUNE_POUCH_AMOUNT3:
-			case Varbits.RUNE_POUCH_AMOUNT4:
+			case VarbitID.RUNE_POUCH_TYPE_1:
+			case VarbitID.RUNE_POUCH_TYPE_2:
+			case VarbitID.RUNE_POUCH_TYPE_3:
+			case VarbitID.RUNE_POUCH_TYPE_4:
+			case VarbitID.RUNE_POUCH_TYPE_5:
+			case VarbitID.RUNE_POUCH_TYPE_6:
+			case VarbitID.RUNE_POUCH_QUANTITY_1:
+			case VarbitID.RUNE_POUCH_QUANTITY_2:
+			case VarbitID.RUNE_POUCH_QUANTITY_3:
+			case VarbitID.RUNE_POUCH_QUANTITY_4:
+			case VarbitID.RUNE_POUCH_QUANTITY_5:
+			case VarbitID.RUNE_POUCH_QUANTITY_6:
 				updateRunesPostClientTick = true;
 				break;
-			case AutocastingConstants.VARBIT_FOUNTAIN_OF_RUNES:
+			case VarbitID.FOUNTAIN_OF_RUNE_ACTIVE:
 				state.updateCastsRemaining(false);
 				break;
 		}
@@ -50,11 +54,11 @@ public class AutocastingSubscriptions
 	{
 		switch (event.getGroupId())
 		{
-			case InterfaceID.BANK:
-			case InterfaceID.BANK_INVENTORY:
-			case InterfaceID.DEPOSIT_BOX:
-			case InterfaceID.GROUP_STORAGE:
-			case InterfaceID.GROUP_STORAGE_INVENTORY:
+			case InterfaceID.BANKMAIN:
+			case InterfaceID.BANKSIDE:
+			case InterfaceID.BANK_DEPOSITBOX:
+			case InterfaceID.SHARED_BANK:
+			case InterfaceID.SHARED_BANK_SIDE:
 				state.setBanking(true);
 				state.setRecentlySentNoSpellSelectedNotification(false);
 		}
@@ -65,11 +69,11 @@ public class AutocastingSubscriptions
 	{
 		switch (event.getGroupId())
 		{
-			case InterfaceID.BANK:
-			case InterfaceID.BANK_INVENTORY:
-			case InterfaceID.DEPOSIT_BOX:
-			case InterfaceID.GROUP_STORAGE:
-			case InterfaceID.GROUP_STORAGE_INVENTORY:
+			case InterfaceID.BANKMAIN:
+			case InterfaceID.BANKSIDE:
+			case InterfaceID.BANK_DEPOSITBOX:
+			case InterfaceID.SHARED_BANK:
+			case InterfaceID.SHARED_BANK_SIDE:
 				state.setBanking(false);
 		}
 	}
@@ -88,12 +92,12 @@ public class AutocastingSubscriptions
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
-		if (event.getContainerId() == InventoryID.EQUIPMENT.getId())
+		if (event.getContainerId() == InventoryID.WORN)
 		{
 			// Equipped items changed; should check to see if an infinite rune item is equipped
 			state.updateInfiniteRuneSources();
 		}
-		if (event.getContainerId() == InventoryID.INVENTORY.getId())
+		if (event.getContainerId() == InventoryID.INV)
 		{
 			// Inventory changed; should re-count runes
 			state.updateRunes();

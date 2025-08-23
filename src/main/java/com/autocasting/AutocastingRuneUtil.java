@@ -6,6 +6,7 @@ import net.runelite.api.EnumComposition;
 import net.runelite.api.EquipmentInventorySlot;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.gameval.VarbitID;
 
 import javax.inject.Inject;
 import java.util.EnumMap;
@@ -157,7 +158,7 @@ public class AutocastingRuneUtil
 			return 0;
 		}
 
-		if (clientData.varbitValue(AutocastingConstants.VARBIT_FOUNTAIN_OF_RUNES) == 1)
+		if (clientData.varbitValue(VarbitID.FOUNTAIN_OF_RUNE_ACTIVE) == 1)
 		{
 			return Integer.MAX_VALUE;
 		}
