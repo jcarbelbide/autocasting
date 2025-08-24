@@ -48,6 +48,11 @@ class AutocastingOverlay extends OverlayPanel
 			return null;
 		}
 
+		if (config.hideUnlikelyItems() && state.isEquippedWeaponBlacklisted())
+		{
+			return null;
+		}
+
 		int casts = state.getCastsRemaining();
 		boolean displayCasts = config.showCastsRemaining()
 			&& casts <= config.displayCastLimit()

@@ -96,6 +96,7 @@ public class AutocastingSubscriptions
 		{
 			// Equipped items changed; should check to see if an infinite rune item is equipped
 			state.updateInfiniteRuneSources();
+			state.updateIsBlacklisted();
 		}
 		if (event.getContainerId() == InventoryID.INV)
 		{

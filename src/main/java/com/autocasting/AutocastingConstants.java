@@ -1,8 +1,8 @@
 package com.autocasting;
 
 import lombok.AllArgsConstructor;
-import net.runelite.api.Varbits;
 import net.runelite.api.gameval.VarbitID;
+import net.runelite.api.gameval.ItemID;
 
 import java.awt.*;
 
@@ -29,6 +29,15 @@ public final class AutocastingConstants
 		VarbitID.RUNE_POUCH_QUANTITY_2,
 		VarbitID.RUNE_POUCH_QUANTITY_3,
 		VarbitID.RUNE_POUCH_QUANTITY_4,
+	};
+
+	public static final int[] BLACKLISTED_WEAPONS = {
+		ItemID.BLISTERWOOD_FLAIL,
+		ItemID.SOS_SKULL_SCEPTRE,
+		ItemID.SOS_SKULL_SCEPTRE_IMBUED,
+		ItemID.SARADOMIN_STAFF,
+		ItemID.GUTHIX_STAFF,
+		ItemID.ZAMORAK_STAFF
 	};
 
 	// Message constants
