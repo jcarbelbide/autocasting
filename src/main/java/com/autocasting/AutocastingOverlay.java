@@ -108,14 +108,15 @@ class AutocastingOverlay extends OverlayPanel
 		{ // Exactly 1 is nonnull
 			component = (textComponent != null) ? textComponent : imageComponent;
 		}
+		panelComponent.getChildren().clear();
 		panelComponent.getChildren().add(component);
 		panelComponent.setPreferredSize(new Dimension(
-			graphics.getFontMetrics().stringWidth(textPart) + 30,
+			graphics.getFontMetrics().stringWidth(textPart) + 10,
 			0
 		));
 
 		configureBackground(casts);
-		return super.render(graphics);
+		return panelComponent.render(graphics);
 	}
 
 	private String getOverrideText(int casts)
