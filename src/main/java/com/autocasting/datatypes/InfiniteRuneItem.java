@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.EquipmentInventorySlot;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
 
 import java.util.Map;
 
@@ -35,20 +35,21 @@ public enum InfiniteRuneItem
 	STEAM_BATTLESTAFF(ItemID.STEAM_BATTLESTAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
 	LAVA_BATTLESTAFF(ItemID.LAVA_BATTLESTAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
 
-	MYSTIC_MIST_STAFF(ItemID.MYSTIC_MIST_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.AIR, RuneType.WATER}),
-	MYSTIC_DUST_STAFF(ItemID.MYSTIC_DUST_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.AIR, RuneType.EARTH}),
+	// 
+	MYSTIC_MIST_STAFF(ItemID.MYSTIC_MIST_BATTLESTAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.AIR, RuneType.WATER}),
+	MYSTIC_DUST_STAFF(ItemID.MYSTIC_DUST_BATTLESTAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.AIR, RuneType.EARTH}),
 	MYSTIC_MUD_STAFF(ItemID.MYSTIC_MUD_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.EARTH}),
-	MYSTIC_SMOKE_STAFF(ItemID.MYSTIC_SMOKE_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.AIR, RuneType.FIRE}),
-	MYSTIC_STEAM_STAFF(ItemID.MYSTIC_STEAM_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
+	MYSTIC_SMOKE_STAFF(ItemID.MYSTIC_SMOKE_BATTLESTAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.AIR, RuneType.FIRE}),
+	MYSTIC_STEAM_STAFF(ItemID.MYSTIC_STEAM_BATTLESTAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
 	MYSTIC_LAVA_STAFF(ItemID.MYSTIC_LAVA_STAFF, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
 
-	STEAM_BATTLESTAFF_OR(ItemID.STEAM_BATTLESTAFF_12795, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
-	MYSTIC_STEAM_STAFF_OR(ItemID.MYSTIC_STEAM_STAFF_12796, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
-	LAVA_BATTLESTAFF_OR(ItemID.LAVA_BATTLESTAFF_21198, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
-	MYSTIC_LAVA_STAFF_OR(ItemID.MYSTIC_LAVA_STAFF_21200, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
+	STEAM_BATTLESTAFF_OR(ItemID.STEAM_BATTLESTAFF_PRETTY, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
+	MYSTIC_STEAM_STAFF_OR(ItemID.MYSTIC_STEAM_BATTLESTAFF_PRETTY, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER, RuneType.FIRE}),
+	LAVA_BATTLESTAFF_OR(ItemID.LAVA_BATTLESTAFF_PRETTY, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
+	MYSTIC_LAVA_STAFF_OR(ItemID.MYSTIC_LAVA_STAFF_PRETTY, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.EARTH, RuneType.FIRE}),
 
 	KODAI_WAND(ItemID.KODAI_WAND, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER}),
-	KODAI_WAND_23626(ItemID.KODAI_WAND_23626, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER}),
+	KODAI_WAND_23626(ItemID.BR_KODAI_WAND, EquipmentInventorySlot.WEAPON, new RuneType[]{RuneType.WATER}),
 
 	TOME_OF_WATER(ItemID.TOME_OF_WATER, EquipmentInventorySlot.SHIELD, new RuneType[]{RuneType.WATER}),
 	TOME_OF_FIRE(ItemID.TOME_OF_FIRE, EquipmentInventorySlot.SHIELD, new RuneType[]{RuneType.FIRE}),

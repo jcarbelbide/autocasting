@@ -110,7 +110,7 @@ class AutocastingOverlay extends OverlayPanel
 		}
 		panelComponent.getChildren().add(component);
 		panelComponent.setPreferredSize(new Dimension(
-			graphics.getFontMetrics().stringWidth(textPart) + 10,
+			graphics.getFontMetrics().stringWidth(textPart) + 30,
 			0
 		));
 
