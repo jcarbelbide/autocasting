@@ -11,6 +11,9 @@ import lombok.Setter;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.Map;
+import net.runelite.api.EquipmentInventorySlot;
+import net.runelite.api.Item;
+import net.runelite.api.ItemContainer;
 
 @Singleton
 public class AutocastingState
@@ -31,6 +34,10 @@ public class AutocastingState
 	@Getter
 	@Setter
 	private boolean isEquippedWeaponMagic;
+
+	@Getter
+	@Setter
+	private boolean isEquippedWeaponBlacklisted;
 
 	@Getter
 	@Setter
@@ -162,6 +169,25 @@ public class AutocastingState
 		// The below types do have a casting option, but do not autocast spells, so leave them out.
 		// TYPE_6: These are salamanders. They do not autocast, but give magic xp, so technically have a "casting" option.
 		// TYPE_23: Trident, Sanguinesti, etc. Do not have autocast options, so do not show overlay when these are equipped.
+	}
+
+	public void updateIsBlacklisted()
+	{
+		ItemContainer equipment = clientData.getEquipment();
+		Item weaponSlot = equipment.getItem(EquipmentInventorySlot.WEAPON.getSlotIdx());
+		if (weaponSlot == null) {
+			isEquippedWeaponBlacklisted = false;
+			return;
+		}
+
+		int weaponId = weaponSlot.getId();
+		for (int blacklistedId : AutocastingConstants.BLACKLISTED_WEAPONS) {
+			if (weaponId == blacklistedId) {
+				isEquippedWeaponBlacklisted = true;
+				return;
+			}
+		}
+		isEquippedWeaponBlacklisted = false;
 	}
 
 	public void updateMagicLevel(int boostedLevel)

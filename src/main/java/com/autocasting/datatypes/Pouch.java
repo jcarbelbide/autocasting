@@ -3,7 +3,7 @@ package com.autocasting.datatypes;
 import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
 
 import java.util.Map;
 
@@ -12,12 +12,12 @@ import java.util.Map;
 public enum Pouch
 {
 
-	RUNE_POUCH(ItemID.RUNE_POUCH, PouchType.THREE_SLOTS),
-	RUNE_POUCH_L(ItemID.RUNE_POUCH_L, PouchType.THREE_SLOTS),
+	RUNE_POUCH(ItemID.BH_RUNE_POUCH, PouchType.THREE_SLOTS),
+	RUNE_POUCH_L(ItemID.BH_RUNE_POUCH_TROUVER, PouchType.THREE_SLOTS),
 	DIVINE_RUNE_POUCH(ItemID.DIVINE_RUNE_POUCH, PouchType.FOUR_SLOTS),
-	DIVINE_RUNE_POUCH_L(ItemID.DIVINE_RUNE_POUCH_L, PouchType.FOUR_SLOTS),
-	LMS_POUCH(ItemID.RUNE_POUCH_23650, PouchType.LMS),
-	EMIRS_ARENA_POUCH(ItemID.RUNE_POUCH_27086, PouchType.INFINITE);
+	DIVINE_RUNE_POUCH_L(ItemID.DIVINE_RUNE_POUCH_TROUVER, PouchType.FOUR_SLOTS),
+	LMS_POUCH(ItemID.BR_RUNE_REPLACEMENT, PouchType.LMS),
+	EMIRS_ARENA_POUCH(ItemID.PVPA_RUNE_REPLACEMENT, PouchType.INFINITE);
 
 	@Getter
 	private final int id;

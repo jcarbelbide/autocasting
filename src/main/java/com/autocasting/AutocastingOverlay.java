@@ -48,6 +48,11 @@ class AutocastingOverlay extends OverlayPanel
 			return null;
 		}
 
+		if (config.hideUnlikelyItems() && state.isEquippedWeaponBlacklisted())
+		{
+			return null;
+		}
+
 		int casts = state.getCastsRemaining();
 		boolean displayCasts = config.showCastsRemaining()
 			&& casts <= config.displayCastLimit()
@@ -103,6 +108,7 @@ class AutocastingOverlay extends OverlayPanel
 		{ // Exactly 1 is nonnull
 			component = (textComponent != null) ? textComponent : imageComponent;
 		}
+		panelComponent.getChildren().clear();
 		panelComponent.getChildren().add(component);
 		panelComponent.setPreferredSize(new Dimension(
 			graphics.getFontMetrics().stringWidth(textPart) + 10,
@@ -110,7 +116,7 @@ class AutocastingOverlay extends OverlayPanel
 		));
 
 		configureBackground(casts);
-		return super.render(graphics);
+		return panelComponent.render(graphics);
 	}
 
 	private String getOverrideText(int casts)

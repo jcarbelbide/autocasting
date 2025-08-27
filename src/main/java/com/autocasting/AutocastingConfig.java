@@ -170,12 +170,25 @@ public interface AutocastingConfig extends Config
 		return AutocastingConstants.DEFAULT_CAST_RUNES_THRESHOLD;
 	}
 
+	@ConfigItem(
+		keyName = "hideUnlikelyItems",
+		name = "Hide Unlikely Weapons",
+		description = "Hide display on items which can autocast but aren't commonly used to cast.",
+		position = 13,
+		section = overlaySettings
+	)
+	default boolean hideUnlikelyItems()
+	{
+		return true;
+	}
+
+
 	// NOTIFICATIONS
 
 	@ConfigSection(
 		name = "Notifications",
 		description = "In-Game and Desktop Notification Settings",
-		position = 13
+		position = 14
 	)
 	String notificationSettings = "notifications";
 
@@ -183,7 +196,7 @@ public interface AutocastingConfig extends Config
 		keyName = "notifyOutOfCombat",
 		name = "Notify Out Of Combat",
 		description = "Controls if notifications for autocast spells will appear outside of combat.",
-		position = 14,
+		position = 15,
 		section = notificationSettings
 	)
 	default boolean notifyOutOfCombat()
@@ -195,7 +208,7 @@ public interface AutocastingConfig extends Config
 		keyName = "notifyOnStatDrain",
 		name = "Stat Drain Notification",
 		description = "Notifies you when your magic level falls below the level required for your autocast spell.",
-		position = 15,
+		position = 16,
 		section = notificationSettings
 	)
 	default AutocastingConstants.ChatNotificationType notifyOnStatDrain()
@@ -207,7 +220,7 @@ public interface AutocastingConfig extends Config
 		keyName = "notifyOnLowCasts",
 		name = "Low Casts Notification",
 		description = "Notifies you when your amount of casts falls to or below the Low Cast Threshold.",
-		position = 16,
+		position = 17,
 		section = notificationSettings
 	)
 	default AutocastingConstants.ChatNotificationType notifyOnLowCasts()
@@ -219,7 +232,7 @@ public interface AutocastingConfig extends Config
 		keyName = "notifyOnNoAutocastSelected",
 		name = "Alert on No Spell Selected",
 		description = "Enter alert mode when no autocast spell is selected.",
-		position = 17,
+		position = 18,
 		section = notificationSettings
 	)
 	default AutocastingConstants.ChatNotificationType notifyOnNoAutocastSelected()
@@ -233,7 +246,7 @@ public interface AutocastingConfig extends Config
 		keyName = "lowCastNotificationThreshold",
 		name = "Low Cast Threshold",
 		description = "Amount of casts to notify you on, based on your current runes.",
-		position = 18,
+		position = 19,
 		section = notificationSettings
 	)
 	default int lowCastNotificationThreshold()
@@ -246,7 +259,7 @@ public interface AutocastingConfig extends Config
 		keyName = "notifyOnLowCasts",
 		name = "No Casts Notification",
 		description = "Notifies you when you run out of runes to cast your autocast spell.",
-		position = 19,
+		position = 20,
 		section = notificationSettings
 	)
 	default AutocastingConstants.ChatNotificationType notifyOnNoCasts()
